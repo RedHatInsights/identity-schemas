@@ -1,0 +1,165 @@
+{
+  "type": "object",
+  "properties": {
+    "identity": {
+      "type": "object",
+      "properties": {
+        "account_number": {
+          "type": "string"
+        },
+        "org_id": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string",
+          "enum": [
+            "User",
+            "System"
+          ]
+        },
+        "auth_type": {
+          "type": "string",
+          "enum": [
+            "jwt-auth",
+            "cert-auth",
+            "basic-auth",
+            "classic-proxy",
+            "uhc-auth"
+          ]
+        },
+        "internal": {
+          "type": "object",
+          "properties": {
+            "auth_time": {
+              "type": "number"
+            },
+            "cross_access": {
+              "type": "boolean"
+            },
+            "org_id": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "auth_time",
+            "org_id"
+          ]
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "auth_type": {
+                "pattern": "(^basic-auth$|^jwt-auth$)"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "type": {
+                "const": "User"
+              },
+              "user": {
+                "type": "object",
+                "properties": {
+                  "email": {
+                    "type": "string"
+                  },
+                  "first_name": {
+                    "type": "string"
+                  },
+                  "last_name": {
+                    "type": "string"
+                  },
+                  "is_active": {
+                    "type": "boolean"
+                  },
+                  "is_internal": {
+                    "type": "boolean"
+                  },
+                  "is_org_admin": {
+                    "type": "boolean"
+                  },
+                  "locale": {
+                    "type": "string"
+                  },
+                  "user_id": {
+                    "type": "string"
+                  },
+                  "username": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "email",
+                  "first_name",
+                  "last_name",
+                  "is_active",
+                  "is_internal",
+                  "is_org_admin",
+                  "locale",
+                  "user_id",
+                  "username"
+                ]
+              }
+            },
+            "required": [
+              "user"
+            ]
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "auth_type": {
+                "pattern": "(^cert-auth$|^uhc-auth&)"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "type": {
+                "const": "System"
+              },
+              "system": {
+                "type": "object",
+                "properties": {
+                  "cert_type": {
+                    "type": "string"
+                  },
+                  "cn": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "cert_type",
+                  "cn"
+                ]
+              }
+            },
+            "required": [
+              "system"
+            ]
+          }
+        }
+      ],
+      "required": [
+        "account_number",
+        "org_id",
+        "type",
+        "auth_type",
+        "internal"
+      ]
+    },
+    "entitlements": {
+      "type": "object"
+    }
+  },
+  "minProperties": 1,
+  "additionalProperties": false,
+  "required": [
+    "identity",
+    "entitlements"
+  ]
+}
