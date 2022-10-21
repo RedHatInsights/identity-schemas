@@ -1,0 +1,10 @@
+{
+  "identity": {
+    "auth_type": "X509",
+    "type": "X509",
+    "x509": {
+      "issuer_dn": "/O=Foo/OU=prod/CN=Certificate Authority",
+      "subject_dn": "/DC=com/DC=foo/OU=users/UID=jdoe/Email=Jane.Doe@example.com/CN=Jane Doe cert"
+    }
+  }
+}

@@ -1,0 +1,75 @@
+{
+  "entitlements": {
+    "ansible": {
+      "is_entitled": true,
+      "is_trial": false
+    },
+    "cost_management": {
+      "is_entitled": true,
+      "is_trial": false
+    },
+    "insights": {
+      "is_entitled": true,
+      "is_trial": false
+    },
+    "internal": {
+      "is_entitled": false,
+      "is_trial": false
+    },
+    "migrations": {
+      "is_entitled": true,
+      "is_trial": false
+    },
+    "openshift": {
+      "is_entitled": true,
+      "is_trial": false
+    },
+    "rhel": {
+      "is_entitled": true,
+      "is_trial": false
+    },
+    "rhoam": {
+      "is_entitled": false,
+      "is_trial": false
+    },
+    "rhods": {
+      "is_entitled": false,
+      "is_trial": false
+    },
+    "rhosak": {
+      "is_entitled": false,
+      "is_trial": false
+    },
+    "settings": {
+      "is_entitled": true,
+      "is_trial": false
+    },
+    "smart_management": {
+      "is_entitled": true,
+      "is_trial": false
+    },
+    "subscriptions": {
+      "is_entitled": true,
+      "is_trial": false
+    },
+    "user_preferences": {
+      "is_entitled": true,
+      "is_trial": false
+    }
+  },
+  "identity": {
+    "account_number": "123",
+    "auth_type": "cert-auth",
+    "internal": {
+      "auth_time": 900,
+      "cross_access": false,
+      "org_id": "321"
+    },
+    "org_id": "321",
+    "system": {
+      "cert_type": "system",
+      "cn": "c87dcb4c-8af1-40dd-878e-60c744edddd0"
+    },
+    "type": "System"
+  }
+}

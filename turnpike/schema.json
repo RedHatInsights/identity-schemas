@@ -1,0 +1,101 @@
+{
+  "type": "object",
+  "properties": {
+    "identity": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": [
+            "Associate",
+            "X509"
+          ]
+        },
+        "auth_type": {
+          "type": "string",
+          "enum": [
+            "saml-auth",
+            "X509"
+          ]
+        }
+      },
+      "required": [
+        "auth_type",
+        "type"
+      ],
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "auth_type": {
+                "const": "X509"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "type": {
+                "const": "X509"
+              },
+              "x509": {
+                "type": "object",
+                "properties": {
+                  "issuer_dn": {
+                    "type": "string"
+                  },
+                  "subject_dn": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "issuer_dn",
+                  "subject_dn"
+                ]
+              }
+            },
+            "required": [
+              "x509"
+            ]
+          }
+        },{
+          "if": {
+            "properties": {
+              "auth_type": {
+                "const": "saml-auth"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "type": {
+                "const": "Associate"
+              },
+              "associate": {
+                "type": "object",
+                "properties": {
+                  "Role": {
+                    "type": "array"
+                  },
+                  "subject_dn": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "Role"
+                ]
+              }
+            },
+            "required": [
+              "associate"
+            ]
+          }
+        }
+      ]
+    }
+  },
+  "minProperties": 1,
+  "additionalProperties": false,
+  "required": [
+    "identity"
+  ]
+}
