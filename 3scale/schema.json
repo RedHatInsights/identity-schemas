@@ -14,7 +14,8 @@
           "type": "string",
           "enum": [
             "User",
-            "System"
+            "System",
+            "ServiceAccount"
           ]
         },
         "auth_type": {
@@ -52,14 +53,14 @@
             "properties": {
               "auth_type": {
                 "pattern": "(^basic-auth$|^jwt-auth$)"
+              },
+              "type": {
+                "const": "User"
               }
             }
           },
           "then": {
             "properties": {
-              "type": {
-                "const": "User"
-              },
               "user": {
                 "type": "object",
                 "properties": {
@@ -106,6 +107,40 @@
             },
             "required": [
               "user"
+            ]
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "auth_type": {
+                "const": "jwt-auth"
+              },
+              "type": {
+                "const": "ServiceAccount"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "service_account": {
+                "type": "object",
+                "properties": {
+                  "client_id": {
+                    "type": "string"
+                  },
+                  "username": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "client_id",
+                  "username"
+                ]
+              }
+            },
+            "required": [
+              "service_account"
             ]
           }
         },
