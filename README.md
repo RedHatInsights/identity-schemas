@@ -6,7 +6,7 @@ Schemas for the HCC `x-rh-identity` header.
 ## Getting Started
 
 There are multiple `x-rh-identity` header shapes based on the type of authentication
-being used. This is project is meant to be a source of truth for what the myriad
+being used. This project is meant to be a source of truth for what the myriad
 identities look like, for testing, enforcement and building clients.
 
 
