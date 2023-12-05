@@ -1,0 +1,16 @@
+{
+  "identity": {
+    "associate": {
+      "Role": [
+        "roleOne",
+        "roleTwo"
+      ],
+      "email": "Jane.Doe@example.com",
+      "givenName": "Jane",
+      "rhatUUID": "c87dcb4c-8af1-40dd-878e-60c744edddd0",
+      "surname": "Doe"
+    },
+    "auth_type": "saml-auth",
+    "type": "Associate"
+  }
+}
