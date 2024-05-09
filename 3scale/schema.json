@@ -131,6 +131,9 @@
                   },
                   "username": {
                     "type": "string"
+                  },
+                  "scope": {
+                    "type": "string"
                   }
                 },
                 "required": [
