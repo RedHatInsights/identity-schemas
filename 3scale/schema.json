@@ -134,11 +134,15 @@
                   },
                   "scope": {
                     "type": "string"
+                  },
+                  "user_id": {
+                    "type": "string"
                   }
                 },
                 "required": [
                   "client_id",
-                  "username"
+                  "username",
+                  "user_id"
                 ]
               }
             },
