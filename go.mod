@@ -1,6 +1,6 @@
 module github.com/RedHatInsights/identity-schemas
 
-go 1.21.3
+go 1.21
 
 require github.com/xeipuuv/gojsonschema v1.2.0
 
