@@ -7,6 +7,10 @@
     "internal": {
       "org_id": "321",
       "auth_time": 1
+    },
+    "system": {
+      "cert_type": "system",
+      "cn": "c87dcb4c-8af1-40dd-878e-60c744edddd0"
     }
   },
   "entitlements": {}
