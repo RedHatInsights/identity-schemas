@@ -155,7 +155,7 @@
           "if": {
             "properties": {
               "auth_type": {
-                "pattern": "(^cert-auth$|^uhc-auth&)"
+                "pattern": "(^cert-auth$|^uhc-auth$)"
               }
             }
           },
