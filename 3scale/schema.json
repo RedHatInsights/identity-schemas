@@ -163,7 +163,23 @@
             "properties": {
               "type": {
                 "const": "System"
-              },
+              }
+            },
+            "required": [
+              "system"
+            ]
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "auth_type": {
+                "const": "cert-auth"
+              }
+            }
+          },
+          "then": {
+            "properties": {
               "system": {
                 "type": "object",
                 "properties": {
@@ -179,10 +195,31 @@
                   "cn"
                 ]
               }
-            },
-            "required": [
-              "system"
-            ]
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "auth_type": {
+                "const": "uhc-auth"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "system": {
+                "type": "object",
+                "properties": {
+                  "cluster_id": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "cluster_id"
+                ]
+              }
+            }
           }
         }
       ],
