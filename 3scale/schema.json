@@ -1,239 +1,196 @@
 {
+  "$schema": "http://json-schema.org/draft-07/schema#",
   "type": "object",
-  "properties": {
-    "identity": {
+  "definitions": {
+    "InternalInfo": {
       "type": "object",
       "properties": {
-        "account_number": {
-          "type": "string"
-        },
-        "org_id": {
-          "type": "string"
-        },
-        "type": {
-          "type": "string",
-          "enum": [
-            "User",
-            "System",
-            "ServiceAccount"
-          ]
-        },
+        "auth_time": { "type": "number" },
+        "cross_access": { "type": "boolean" },
+        "org_id": { "type": "string" }
+      },
+      "required": [
+        "auth_time",
+        "org_id"
+      ]
+    },
+    "UserIdentity": {
+      "type": "object",
+      "properties": {
+        "account_number": { "type": "string" },
+        "org_id": { "type": "string" },
+        "type": { "const": "User" },
         "auth_type": {
-          "type": "string",
           "enum": [
             "jwt-auth",
-            "cert-auth",
-            "basic-auth",
-            "classic-proxy",
-            "uhc-auth"
+            "basic-auth"
           ]
         },
-        "internal": {
+        "internal": { "$ref": "#/definitions/InternalInfo" },
+        "user": {
           "type": "object",
           "properties": {
-            "auth_time": {
-              "type": "number"
-            },
-            "cross_access": {
-              "type": "boolean"
-            },
-            "org_id": {
-              "type": "string"
-            }
+            "email": { "type": "string" },
+            "first_name": { "type": "string" },
+            "last_name": { "type": "string" },
+            "is_active": { "type": "boolean" },
+            "is_internal": { "type": "boolean" },
+            "is_org_admin": { "type": "boolean" },
+            "locale": { "type": "string" },
+            "user_id": { "type": "string" },
+            "username": { "type": "string" }
           },
           "required": [
-            "auth_time",
-            "org_id"
+            "email",
+            "first_name",
+            "last_name",
+            "is_active",
+            "is_internal",
+            "is_org_admin",
+            "locale",
+            "user_id",
+            "username"
           ]
         }
       },
-      "allOf": [
-        {
-          "if": {
-            "properties": {
-              "auth_type": {
-                "pattern": "(^basic-auth$|^jwt-auth$)"
-              },
-              "type": {
-                "const": "User"
-              }
-            }
-          },
-          "then": {
-            "properties": {
-              "user": {
-                "type": "object",
-                "properties": {
-                  "email": {
-                    "type": "string"
-                  },
-                  "first_name": {
-                    "type": "string"
-                  },
-                  "last_name": {
-                    "type": "string"
-                  },
-                  "is_active": {
-                    "type": "boolean"
-                  },
-                  "is_internal": {
-                    "type": "boolean"
-                  },
-                  "is_org_admin": {
-                    "type": "boolean"
-                  },
-                  "locale": {
-                    "type": "string"
-                  },
-                  "user_id": {
-                    "type": "string"
-                  },
-                  "username": {
-                    "type": "string"
-                  }
-                },
-                "required": [
-                  "email",
-                  "first_name",
-                  "last_name",
-                  "is_active",
-                  "is_internal",
-                  "is_org_admin",
-                  "locale",
-                  "user_id",
-                  "username"
-                ]
-              }
-            },
-            "required": [
-              "user"
-            ]
-          }
-        },
-        {
-          "if": {
-            "properties": {
-              "auth_type": {
-                "const": "jwt-auth"
-              },
-              "type": {
-                "const": "ServiceAccount"
-              }
-            }
-          },
-          "then": {
-            "properties": {
-              "service_account": {
-                "type": "object",
-                "properties": {
-                  "client_id": {
-                    "type": "string"
-                  },
-                  "username": {
-                    "type": "string"
-                  },
-                  "scope": {
-                    "type": "string"
-                  },
-                  "user_id": {
-                    "type": "string"
-                  }
-                },
-                "required": [
-                  "client_id",
-                  "username",
-                  "user_id"
-                ]
-              }
-            },
-            "required": [
-              "service_account"
-            ]
-          }
-        },
-        {
-          "if": {
-            "properties": {
-              "auth_type": {
-                "pattern": "(^cert-auth$|^uhc-auth$)"
-              }
-            }
-          },
-          "then": {
-            "properties": {
-              "type": {
-                "const": "System"
-              }
-            },
-            "required": [
-              "system"
-            ]
-          }
-        },
-        {
-          "if": {
-            "properties": {
-              "auth_type": {
-                "const": "cert-auth"
-              }
-            }
-          },
-          "then": {
-            "properties": {
-              "system": {
-                "type": "object",
-                "properties": {
-                  "cert_type": {
-                    "type": "string"
-                  },
-                  "cn": {
-                    "type": "string"
-                  }
-                },
-                "required": [
-                  "cert_type",
-                  "cn"
-                ]
-              }
-            }
-          }
-        },
-        {
-          "if": {
-            "properties": {
-              "auth_type": {
-                "const": "uhc-auth"
-              }
-            }
-          },
-          "then": {
-            "properties": {
-              "system": {
-                "type": "object",
-                "properties": {
-                  "cluster_id": {
-                    "type": "string"
-                  }
-                },
-                "required": [
-                  "cluster_id"
-                ]
-              }
-            }
-          }
-        }
-      ],
       "required": [
         "account_number",
         "org_id",
         "type",
         "auth_type",
-        "internal"
+        "internal",
+        "user"
       ]
     },
-    "entitlements": {
-      "type": "object"
+    "ServiceAccountIdentity": {
+      "type": "object",
+      "properties": {
+        "account_number": { "type": "string" },
+        "org_id": { "type": "string" },
+        "type": { "const": "ServiceAccount" },
+        "auth_type": { "const": "jwt-auth" },
+        "internal": { "$ref": "#/definitions/InternalInfo" },
+        "service_account": {
+          "type": "object",
+          "properties": {
+            "client_id": { "type": "string" },
+            "username": { "type": "string" },
+            "scope": { "type": "string" },
+            "user_id": { "type": "string" }
+          },
+          "required": [
+            "client_id",
+            "username",
+            "user_id"
+          ]
+        }
+      },
+      "required": [
+        "account_number",
+        "org_id",
+        "type",
+        "auth_type",
+        "internal",
+        "service_account"
+      ]
+    },
+    "CertSystemIdentity": {
+      "type": "object",
+      "properties": {
+        "account_number": { "type": "string" },
+        "org_id": { "type": "string" },
+        "type": { "const": "System" },
+        "auth_type": { "const": "cert-auth" },
+        "internal": { "$ref": "#/definitions/InternalInfo" },
+        "system": {
+          "type": "object",
+          "properties": {
+            "cert_type": { "type": "string" },
+            "cn": { "type": "string" }
+          },
+          "required": [
+            "cert_type",
+            "cn"
+          ]
+        }
+      },
+      "required": [
+        "account_number",
+        "org_id",
+        "type",
+        "auth_type",
+        "internal",
+        "system"
+      ]
+    },
+    "UHCSystemIdentity": {
+      "type": "object",
+      "properties": {
+        "account_number": { "type": "string" },
+        "org_id": { "type": "string" },
+        "type": { "const": "System" },
+        "auth_type": { "const": "uhc-auth" },
+        "internal": { "$ref": "#/definitions/InternalInfo" },
+        "system": {
+          "type": "object",
+          "properties": {
+            "cluster_id": { "type": "string" }
+          },
+          "required": [
+            "cluster_id"
+          ]
+        }
+      },
+      "required": [
+        "account_number",
+        "org_id",
+        "type",
+        "auth_type",
+        "internal",
+        "system"
+      ]
+    },
+    "Entitlement": {
+      "type": "object",
+      "properties": {
+        "is_entitled": { "type": "boolean" },
+        "is_trial": { "type": "boolean" }
+      },
+      "required": [
+        "is_entitled",
+        "is_trial"
+      ]
+    },
+    "Entitlements": {
+      "type": "object",
+      "properties": {
+        "ansible": { "$ref": "#/definitions/Entitlement" },
+        "cost_management": { "$ref": "#/definitions/Entitlement" },
+        "insights": { "$ref": "#/definitions/Entitlement" },
+        "internal": { "$ref": "#/definitions/Entitlement" },
+        "migrations": { "$ref": "#/definitions/Entitlement" },
+        "openshift": { "$ref": "#/definitions/Entitlement" },
+        "rhel": { "$ref": "#/definitions/Entitlement" },
+        "rhoam": { "$ref": "#/definitions/Entitlement" },
+        "rhods": { "$ref": "#/definitions/Entitlement" },
+        "rhosak": { "$ref": "#/definitions/Entitlement" },
+        "settings": { "$ref": "#/definitions/Entitlement" },
+        "smart_management": { "$ref": "#/definitions/Entitlement" },
+        "subscriptions": { "$ref": "#/definitions/Entitlement" },
+        "user_preferences": { "$ref": "#/definitions/Entitlement" }
+      }
     }
+  },
+  "properties": {
+    "identity": {
+      "oneOf": [
+        { "$ref": "#/definitions/UserIdentity" },
+        { "$ref": "#/definitions/ServiceAccountIdentity" },
+        { "$ref": "#/definitions/CertSystemIdentity" },
+        { "$ref": "#/definitions/UHCSystemIdentity" }
+      ]
+    },
+    "entitlements": { "$ref": "#/definitions/Entitlements" }
   },
   "minProperties": 1,
   "additionalProperties": false,
