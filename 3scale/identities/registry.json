@@ -66,7 +66,7 @@
       "org_id": "321"
     },
     "org_id": "321",
-    "type": "User-from-registry",
+    "type": "User",
     "user": {
       "email": "Jane.Doe@example.com",
       "first_name": "Jane",
