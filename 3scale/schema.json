@@ -25,7 +25,8 @@
             "cert-auth",
             "basic-auth",
             "classic-proxy",
-            "uhc-auth"
+            "uhc-auth",
+            "registry-auth"
           ]
         },
         "internal": {
