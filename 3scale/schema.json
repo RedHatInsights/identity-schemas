@@ -53,6 +53,20 @@
           "if": {
             "properties": {
               "auth_type": {
+                "pattern": "^(basic-auth|jwt-auth|cert-auth|uhc-auth|classic-proxy)$"
+              }
+            }
+          },
+          "then": {
+            "required": [
+              "account_number"
+            ]
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "auth_type": {
                 "pattern": "(^basic-auth$|^jwt-auth$)"
               },
               "type": {
@@ -156,6 +170,36 @@
           "if": {
             "properties": {
               "auth_type": {
+                "const": "registry-auth"
+              },
+              "type": {
+                "const": "User"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "user": {
+                "type": "object",
+                "properties": {
+                  "username": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "username"
+                ]
+              }
+            },
+            "required": [
+              "user"
+            ]
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "auth_type": {
                 "pattern": "(^cert-auth$|^uhc-auth$)"
               }
             }
@@ -225,7 +269,6 @@
         }
       ],
       "required": [
-        "account_number",
         "org_id",
         "type",
         "auth_type",

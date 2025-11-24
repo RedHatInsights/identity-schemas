@@ -1,11 +1,12 @@
 package main
 
 import (
-    "fmt"
-    "io/fs"
-    "os"
-    "strings"
-    "github.com/xeipuuv/gojsonschema"
+	"fmt"
+	"io/fs"
+	"os"
+	"strings"
+
+	"github.com/xeipuuv/gojsonschema"
 )
 
 var validationErrors []string
