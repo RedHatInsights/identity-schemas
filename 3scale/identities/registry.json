@@ -58,7 +58,6 @@
     }
   },
   "identity": {
-    "account_number": "123",
     "auth_type": "registry-auth",
     "internal": {
       "auth_time": 0,
